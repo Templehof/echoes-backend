@@ -1,0 +1,56 @@
+# Python-specific ignores
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Flask-specific ignores
+instance/  # Flask instance folder (for configuration, SQLite DBs, etc.)
+*.sqlite  # If using SQLite for development
+
+# Environment variables and secrets
+.env
+*.env
+*.secret
+
+# Logs and temporary files
+*.log
+*.pid
+*.tmp
+temp/
+tmp/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS-specific
+.DS_Store
+
+# Coverage and testing
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Dependency lock files (if not needed in version control)
+Pipfile.lock
+poetry.lock
+
+# Miscellaneous
+*.bak
+*.swp
+*.swo
