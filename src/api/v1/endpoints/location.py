@@ -7,11 +7,11 @@ router = APIRouter()
 
 @router.post("/location/by-name", response_model=FullLocationResponse)
 async def get_location_by_name(request: LocationRequestByName):
-    data = await identify_full_location_by_name(request.name)
+    data = identify_full_location_by_name(request.name)
     return FullLocationResponse(**data)
 
 
 @router.post("/location/by-coordinates", response_model=FullLocationResponse)
 async def get_location_by_coordinates(request: LocationRequestByCoordinates):
-    data = await identify_full_location_by_coordinates(request.longitude, request.latitude)
+    data = identify_full_location_by_coordinates(request.longitude, request.latitude)
     return FullLocationResponse(**data)
