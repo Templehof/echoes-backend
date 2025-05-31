@@ -20,8 +20,8 @@ instance/  # Flask instance folder (for configuration, SQLite DBs, etc.)
 
 # Environment variables and secrets
 .env
-*.env
-*.secret
+.env.*
+!.env.example
 
 # Logs and temporary files
 *.log

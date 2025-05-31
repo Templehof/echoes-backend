@@ -1,10 +1,19 @@
 from fastapi import FastAPI
 from src.api.v1.endpoints.location import router as location_router
+from src.config import Settings
+
+
+def get_settings():
+    return Settings()
+
+
+settings = get_settings()
 
 app = FastAPI(
-    title="Echoes Location API",
-    description="API for identifying locations by name or coordinates for use with echoes application",
-    version="1.0.0")
+    title=settings.app_name,
+    debug=settings.debug,
+    version="1.0.0"
+)
 
 app.include_router(
     location_router,
@@ -15,4 +24,8 @@ app.include_router(
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {
+        "app": settings.app_name,
+        "environment": settings.environment,
+        "debug": settings.debug
+    }
