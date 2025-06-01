@@ -17,6 +17,7 @@ def get_secret_or_env(key: str, default=None):
 
 class Settings(BaseSettings):
     google_maps_api_key: Optional[str] = None
+    gemini_api_key: Optional[str] = None
     app_name: Optional[str] = None
     environment: Optional[str] = None
     debug: bool = True
@@ -31,6 +32,7 @@ class Settings(BaseSettings):
         super().__init__(**kwargs)
         # Override with Docker secrets if available
         self.google_maps_api_key = get_secret_or_env("GOOGLE_MAPS_API_KEY", self.google_maps_api_key)
+        self.google_maps_api_key = get_secret_or_env("GEMINI_API_KEY", self.gemini_api_key)
         self.app_name = get_secret_or_env("APP_NAME", self.app_name)
         self.environment = get_secret_or_env("ENVIRONMENT", self.environment)
         debug_value = get_secret_or_env("DEBUG", str(self.debug))

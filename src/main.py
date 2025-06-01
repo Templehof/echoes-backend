@@ -2,6 +2,7 @@ import asyncio
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from src.api.v1.endpoints.location import router as location_router
+from src.api.v1.endpoints.story import router as story_router
 from src.config import Settings
 from src.utils import cacheClearer
 
@@ -39,6 +40,12 @@ app.include_router(
     location_router,
     prefix="/api/v1",
     tags=["location"]
+)
+
+app.include_router(
+    story_router,
+    prefix="/api/v1",
+    tags=["story"]
 )
 
 
