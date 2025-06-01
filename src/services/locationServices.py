@@ -37,5 +37,5 @@ def cached_location_by_coordinates(lat: float, lng: float) -> dict:
     # Round to 6 decimal places for cache key consistency
     rounded_lat = round(lat, 6)
     rounded_lng = round(lng, 6)
-    data = identify_full_location_by_coordinates(rounded_lng, rounded_lat)
+    data = identify_full_location_by_coordinates(rounded_lat, rounded_lng)
     return data[0]
