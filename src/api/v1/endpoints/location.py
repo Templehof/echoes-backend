@@ -7,8 +7,7 @@ router = APIRouter()
 
 @router.post("/location/by-name", response_model=FullLocationResponse)
 def get_location_by_name(request: LocationRequestByName):
-    data = cached_location_by_name(request.name)
-    result = data[0]
+    result = cached_location_by_name(request.name)
     return FullLocationResponse(
         name=result["formatted_address"][:200],  # Truncate to ensure max_length
         place_id=result.get("place_id"),  # Safe access for optional field
@@ -19,8 +18,7 @@ def get_location_by_name(request: LocationRequestByName):
 
 @router.post("/location/by-coordinates", response_model=FullLocationResponse)
 def get_location_by_coordinates(request: LocationRequestByCoordinates):
-    data = cached_location_by_coordinates(request.longitude, request.latitude)
-    result = data[0]
+    result = cached_location_by_coordinates(request.longitude, request.latitude)
     return FullLocationResponse(
         name=result["formatted_address"],
         place_id=result.get("place_id"),  # Use .get() for optional field
