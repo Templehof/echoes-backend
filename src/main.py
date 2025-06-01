@@ -5,11 +5,10 @@ from src.api.v1.endpoints.location import router as location_router
 from src.api.v1.endpoints.story import router as story_router
 from src.config import Settings
 from src.utils import cacheClearer
-
+from fastapi.middleware.cors import CORSMiddleware
 
 def get_settings():
     return Settings()
-
 
 settings = get_settings()
 
@@ -32,9 +31,19 @@ async def lifespan(app: FastAPI):
             print(f"Background task {task_name} cancelled")
 
 
+origins = ["*"]
+
 app = FastAPI(title=settings.app_name,
               debug=settings.debug,
               version="1.0.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(
     location_router,
