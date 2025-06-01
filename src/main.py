@@ -1,6 +1,9 @@
+import asyncio
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from src.api.v1.endpoints.location import router as location_router
 from src.config import Settings
+from src.utils import cacheClearer
 
 
 def get_settings():
@@ -9,11 +12,28 @@ def get_settings():
 
 settings = get_settings()
 
-app = FastAPI(
-    title=settings.app_name,
-    debug=settings.debug,
-    version="1.0.0"
-)
+# Store background tasks
+background_tasks = {}
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: Create background task for cache clearing
+    task = asyncio.create_task(cacheClearer.periodic_cache_clear())
+    background_tasks["location_cache_clearer"] = task
+    yield
+    # Shutdown: Cancel background tasks
+    for task_name, task in background_tasks.items():
+        task.cancel()
+        try:
+            await task
+        except asyncio.CancelledError:
+            print(f"Background task {task_name} cancelled")
+
+
+app = FastAPI(title=settings.app_name,
+              debug=settings.debug,
+              version="1.0.0", lifespan=lifespan)
 
 app.include_router(
     location_router,

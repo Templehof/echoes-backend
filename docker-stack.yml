@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  api:
+    image: echoes-backend:latest
+    ports:
+      - "80:80"
+    secrets:
+      - google_maps_api_key
+      - app_name
+      - environment
+      - debug
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 5s
+
+secrets:
+  google_maps_api_key:
+    external: true
+  app_name:
+    external: true
+  environment:
+    external: true
+  debug:
+    external: true
