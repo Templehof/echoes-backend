@@ -28,7 +28,8 @@ def get_short_story_about_location(lat: float, long: float):
                   "Aim to adjust the text to the target audience of people who are tourists or history enthusiasts in "
                   "the area and would like to learn more about the history of this location",
                   "if the location is unknown to you say something witty. Do your best to remember what notable "
-                  "people were born in the location or what notable events happened there!"],
+                  "people were born in the location or what notable events happened there! DO NOT USE markup signs "
+                  "such as ** and any others."],
     )
     return genai_resul.text
 
