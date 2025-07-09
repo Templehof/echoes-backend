@@ -16,8 +16,6 @@ services:
       restart_policy:
         condition: any
         delay: 5s
-    networks:
-      - echoes-network
 
   frontend:
     image: echoes-frontend:latest
@@ -28,8 +26,6 @@ services:
       restart_policy:
         condition: any
         delay: 5s
-    networks:
-      - echoes-network
 
 secrets:
   google_maps_api_key:
@@ -42,7 +38,3 @@ secrets:
     external: true
   debug:
     external: true
-
-networks:
-  echoes-network:
-    driver: overlay
