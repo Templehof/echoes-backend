@@ -4,7 +4,7 @@ services:
   api:
     image: echoes-backend:latest
     ports:
-      - "5000:80"
+      - "5001:80"
     secrets:
       - google_maps_api_key
       - gemini_api_key

@@ -36,7 +36,6 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title=settings.app_name if settings.app_name is not None else "Echoes app, check app name config",
               debug=settings.debug,
               version="1.0.0", lifespan=lifespan,
-              root_path="/api/v1"  # This fixes Swagger UI
               )
 
 app.add_middleware(
@@ -49,13 +48,13 @@ app.add_middleware(
 
 app.include_router(
     location_router,
-    prefix="/",
+    prefix="/api/v1",
     tags=["location"]
 )
 
 app.include_router(
     story_router,
-    prefix="/",
+    prefix="/api/v1",
     tags=["story"]
 )
 
