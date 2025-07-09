@@ -4,7 +4,7 @@ services:
   api:
     image: echoes-backend:latest
     ports:
-      - "5000:80"
+      - "127.0.0.1:5000:80"
     secrets:
       - google_maps_api_key
       - gemini_api_key
@@ -16,6 +16,20 @@ services:
       restart_policy:
         condition: any
         delay: 5s
+    networks:
+      - echoes-network
+
+  frontend:
+    image: echoes-frontend:latest
+    ports:
+      - "127.0.0.1:3000:80"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 5s
+    networks:
+      - echoes-network
 
 secrets:
   google_maps_api_key:
@@ -28,3 +42,7 @@ secrets:
     external: true
   debug:
     external: true
+
+networks:
+  echoes-network:
+    driver: overlay

@@ -7,8 +7,10 @@ from src.config import Settings
 from src.utils import cacheClearer
 from fastapi.middleware.cors import CORSMiddleware
 
+
 def get_settings():
     return Settings()
+
 
 settings = get_settings()
 
@@ -31,16 +33,15 @@ async def lifespan(app: FastAPI):
             print(f"Background task {task_name} cancelled")
 
 
-origins = ["*"]
-
-app = FastAPI(title=settings.app_name,
+app = FastAPI(title=settings.app_name if settings.app_name != None else "Echoes app, check app name config",
               debug=settings.debug,
               version="1.0.0", lifespan=lifespan)
 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=False,
+    allow_origins=["https://history-echoes.se", "http://localhost:3000"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
