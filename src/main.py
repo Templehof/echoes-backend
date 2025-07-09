@@ -33,10 +33,9 @@ async def lifespan(app: FastAPI):
             print(f"Background task {task_name} cancelled")
 
 
-app = FastAPI(title=settings.app_name if settings.app_name != None else "Echoes app, check app name config",
+app = FastAPI(title=settings.app_name if settings.app_name is not None else "Echoes app, check app name config",
               debug=settings.debug,
               version="1.0.0", lifespan=lifespan)
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -66,3 +65,8 @@ def read_root():
         "environment": settings.environment,
         "debug": settings.debug
     }
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
